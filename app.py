@@ -58,11 +58,12 @@ def upload():
 
         remove_old_files()
         
-        # zipname = "HelloWorld.zip"
+        zipname = "HelloWorld.zip"
         
         return send_file(
             stream,
             as_attachment=True,
+            download_name=zipname,
             mimetype = XLSX_MIMETYPE
         )    
         
