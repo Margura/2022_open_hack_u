@@ -2,22 +2,32 @@ body {
     font-family: "Montserrat","Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
     font-size: 15px;
     letter-spacing: .05em;
-    color: #333;
-    width: 100%;
+    height: 1000px;
+    margin: 0px;
 }
 
-dev {
+.background img{
+    width: 50%;
+    float: left;
+}
+
+.main {
     border-radius: 1em;
     padding: 1em;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f6f69e;
+    width: 30rem;
+    padding:3rem
 }
 
 label {
-    color: #fff;
     border-top: 4px solid #48ecc4;
     border-right: 4px solid #0a5f4a;
     border-bottom: 4px solid #0f745b;
@@ -30,7 +40,6 @@ label {
 }
 
 label:hover {
-    color: #fff;
     border-top: 4px solid #0f745b;
     border-right: 4px solid #8cf9de;
     border-bottom: 4px solid #48ecc4;
@@ -42,4 +51,23 @@ input[type="file"] {
 }
 input[type="submit"] {
     display: none;
+}
+
+.content {
+    padding-bottom: 3rem;
+    justify-content: center;
+}
+
+.title {
+
+}
+.display_pic{
+    height:200px;
+}
+
+.file_drag_drop_area{
+    text-align: center;
+    padding: 3rem;
+    margin-left: auto;
+    margin-right: auto;
 }

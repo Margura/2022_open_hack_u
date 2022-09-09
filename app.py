@@ -5,7 +5,7 @@ from glob import glob
 from io import BytesIO
 from zipfile import ZipFile
 
-from src.helloworld import helloworld
+from src.main import main
 
 XLSX_MIMETYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 UPLOAD_FOLDER = "/tmp"
@@ -18,17 +18,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = b'(\xf8\x17w\x10\xf6\x1bS`\x0f\xe3\xaa\x9az\x10\x1d'
 
 def remove_old_files():
-    filelist = glob(os.path.join(UPLOAD_FOLDER, "*.jpg"))
-    for f in filelist:
+    for f in glob(os.path.join(UPLOAD_FOLDER, "*.jpg")):
         os.remove(f)
-    filelist = glob(os.path.join(DOWNLOAD_FOLDER, "*.jpeg"))
-    for f in filelist:
+    for f in glob(os.path.join(DOWNLOAD_FOLDER, "*.jpeg")):
         os.remove(f)
-    filelist = glob(os.path.join(TMP_FOLDER, "*.png"))
-    for f in filelist:
+    for f in glob(os.path.join(TMP_FOLDER, "*.png")):
         os.remove(f)
-    filelist = glob(os.path.join(TMP_FOLDER, "*.mp3"))
-    for f in filelist:
+    for f in glob(os.path.join(TMP_FOLDER, "*.midi")):
+        os.remove(f)
+    for f in glob(os.path.join(TMP_FOLDER, "*.mp3")):
         os.remove(f)
 
 @app.route("/")
@@ -50,7 +48,7 @@ def upload():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
-        helloworld()
+        main(UPLOAD_FOLDER, filename)
 
         stream = BytesIO()
         with ZipFile(stream, 'w') as zf:
@@ -60,7 +58,7 @@ def upload():
 
         remove_old_files()
         
-        zipname = "HelloWorld.zip"
+        zipname = "music.zip"
         
         return send_file(
             stream,
