@@ -5,14 +5,13 @@ from glob import glob
 from io import BytesIO
 from zipfile import ZipFile
 
-# from src.make import make
+from src.helloworld import helloworld
 
 XLSX_MIMETYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 UPLOAD_FOLDER = "/tmp"
 DOWNLOAD_FOLDER = "/tmp"
 TMP_FOLDER = "/tmp"
 ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png"}
-# nothing
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -26,6 +25,9 @@ def remove_old_files():
     for f in filelist:
         os.remove(f)
     filelist = glob(os.path.join(TMP_FOLDER, "*.png"))
+    for f in filelist:
+        os.remove(f)
+    filelist = glob(os.path.join(TMP_FOLDER, "*.mp3"))
     for f in filelist:
         os.remove(f)
 
@@ -48,12 +50,12 @@ def upload():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
-        # company = make(UPLOAD_FOLDER, filename)
+        helloworld()
 
         stream = BytesIO()
         with ZipFile(stream, 'w') as zf:
-            for file in glob(os.path.join(DOWNLOAD_FOLDER, '*')):
-                zf.write(file, os.path.basename(file))
+            for f in glob(os.path.join(DOWNLOAD_FOLDER, "*.mp3")):
+                zf.write(f, os.path.basename(f))
         stream.seek(0)
 
         remove_old_files()
