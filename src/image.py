@@ -1,6 +1,5 @@
 import os
 import cv2
-import numpy as np
 
 def read_image(directory, filename) :
     img = cv2.imread(os.path.join(directory, filename))
